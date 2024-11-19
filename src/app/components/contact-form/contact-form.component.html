@@ -1,0 +1,88 @@
+<form #myForm="ngForm" (submit)="onSubmit(); myForm.resetForm()">
+  <div>
+    <input
+      class="form-field"
+      placeholder="Nombre"
+      type="text"
+      id="name"
+      name="name"
+      required
+      [(ngModel)]="formData.name"
+      #nameField="ngModel"
+    />
+    <p *ngIf="nameField.invalid && nameField.touched" class="error-message">
+      El nombre es obligatorio.
+    </p>
+  </div>
+
+  <div class="contact-fields">
+    <div>
+      <input
+        class="form-field"
+        placeholder="Correo electrónico:"
+        type="email"
+        id="email"
+        name="email"
+        required
+        email
+        [(ngModel)]="formData.email"
+        #emailField="ngModel"
+        (ngModelChange)="
+          emailField.control.setErrors(emailValidator(emailField.control))
+        "
+      />
+      <p
+        *ngIf="emailField.invalid && emailField.touched && emailField.errors?.['required']"
+        class="error-message"
+      >
+        El correo electrónico es obligatorio.
+      </p>
+      <p
+        *ngIf="emailField.invalid && emailField.dirty && emailField.errors?.['invalidEmail']"
+        class="error-message"
+      >
+        El correo electrónico no es válido. Por favor, revísalo.
+      </p>
+    </div>
+    <div>
+      <input
+        class="form-field"
+        placeholder="Teléfono:"
+        type="text"
+        id="phone"
+        name="phone"
+        required
+        [(ngModel)]="formData.phone"
+        #phoneField="ngModel"
+      />
+      <p *ngIf="phoneField.invalid && phoneField.touched" class="error-message">
+        El teléfono es obligatorio.
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <textarea
+      class="form-field"
+      placeholder="Escribe aquí tu consulta"
+      id="question"
+      name="message"
+      required
+      [(ngModel)]="formData.message"
+      #messageField="ngModel"
+    ></textarea>
+    <p
+      *ngIf="messageField.invalid && messageField.touched"
+      class="error-message"
+    >
+      No olvides incluir tu mensaje.
+    </p>
+  </div>
+
+  <button class="coloured-button" type="submit" [disabled]="myForm.invalid">
+    Enviar
+  </button>
+  <p *ngIf="submittedMessage" class="submitted-message">
+    {{ submittedMessage }}
+  </p>
+</form>
