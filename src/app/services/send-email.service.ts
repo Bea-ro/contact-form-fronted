@@ -7,8 +7,7 @@ import { FormData } from '../models/formData.model';
   providedIn: 'root',
 })
 export class SendEmailService {
-  //sustituir en producción con la URL del backend
-  public API_URL: string = 'http://localhost:3000/api/send-email';
+  public API_URL: string = 'http://urldelbackend'; // en desarrollo 'http://localhost:3000/api/send-email'
   public submittedMessage$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private http: HttpClient) {}
