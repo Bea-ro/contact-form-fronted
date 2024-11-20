@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FormData } from '../models/formData.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SendEmailService {
-  public API_URL: string = 'https://botongsign-api.vercel.app/api/send-email';
+  //sustituir en producción con la URL del backend
+  public API_URL: string = 'http://localhost:3000/api/send-email';
   public submittedMessage$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private http: HttpClient) {}
@@ -17,7 +19,7 @@ export class SendEmailService {
         'Content-Type': 'application/json',
       }),
     };
-    console.log('antes del return', formData);
+
     return this.http.post(this.API_URL, formData, httpOptions).subscribe(
       (response) => {
         console.log('Email enviado con éxito, mensaje de app', response);
@@ -31,7 +33,6 @@ export class SendEmailService {
         this.submittedMessage$.next(
           'Se ha producido un error al enviar tu mensaje. Por favor, inténtalo más tarde.'
         );
-        console.log('en return de error', formData);
       }
     );
   }

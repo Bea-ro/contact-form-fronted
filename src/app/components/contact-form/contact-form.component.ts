@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SendEmailService } from '../../services/send-email.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormData } from '../../models/formData.model';
 import { emailValidator } from './validator';
+import { FormData } from '../../models/formData.model';
 
 @Component({
   selector: 'app-contact-form',
@@ -13,7 +13,7 @@ import { emailValidator } from './validator';
   templateUrl: './contact-form.component.html',
   styleUrl: './contact-form.component.css',
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnDestroy {
   public submittedMessage: string = '';
   public messageSubscription: Subscription;
   public formData: FormData = {
